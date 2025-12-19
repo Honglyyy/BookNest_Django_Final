@@ -1,0 +1,67 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+    <!-- Title  -->
+    <title>Essence - Fashion Ecommerce Template</title>
+
+    <!-- Favicon  -->
+    <link rel="icon" href="{% static 'img/core-img/favicon.ico' %}">
+
+    <!-- Core Style CSS -->
+    {% include 'Components/csslinks.html' %}
+
+</head>
+
+<body>
+    <!-- ##### Header Area Start ##### -->
+    <header class="header_area">
+        {% include 'Components/navbar.html' %}
+    </header>
+    <!-- ##### Header Area End ##### -->
+
+{#    <!-- ##### Right Side Cart Area ##### -->#}
+{#    <div class="cart-bg-overlay"></div>#}
+{##}
+{#    <div class="right-side-cart-area">#}
+{#        {% include 'Components/cart-list.html' %}#}
+{#    </div>#}
+{#    <!-- ##### Right Side Cart End ##### -->#}
+
+    <!-- ##### Breadcumb Area Start ##### -->
+    <div class="breadcumb_area bg-img" style="background-image: url(../../../static/img/bg-img/breadcumb.jpg);">
+        <div class="container h-100">
+            <div class="row h-100 align-items-center">
+                <div class="col-12">
+                    <div class="page-title text-center">
+                        <h2>dresses</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ##### Breadcumb Area End ##### -->
+
+    <!-- ##### Shop Grid Area Start ##### -->
+    <section class="shop_grid_area section-padding-80">
+        {% include 'Components/Shop/shopShopGrid.html' %}
+    </section>
+    <!-- ##### Shop Grid Area End ##### -->
+
+    <!-- ##### Footer Area Start ##### -->
+    <footer class="footer_area clearfix">
+        {% include 'Components/footer.html' %}
+    </footer>
+    <!-- ##### Footer Area End ##### -->
+    {% include 'Components/jslinks.html' %}
+
+</body>
+
+</html>

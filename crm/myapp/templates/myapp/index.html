@@ -1,0 +1,67 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Essence - Fashion Ecommerce Template</title>
+
+    <!-- Favicon  -->
+    <link rel="icon" href="{% static 'img/core-img/favicon.ico' %}">
+
+    <!-- Core Style CSS -->
+    {% include 'Components/csslinks.html' %}
+</head>
+
+<body>
+    <!-- ##### Header Area Start ##### -->
+    <header class="header_area">
+        {% include 'Components/navbar.html' %}
+    </header>
+    <!-- Header End -->
+{##}
+{#    <!-- Cart Overlay -->#}
+{#    <div class="cart-bg-overlay"></div>#}
+{##}
+{#    <!-- Right Side Cart -->#}
+{#    <div class="right-side-cart-area">#}
+{#        {% include 'Components/cart-list.html' %}#}
+{#    </div>#}
+
+    <!-- Welcome Section -->
+    {% include 'Components/Index/idxHeroSec.html' %}
+
+    <!-- Top Categories -->
+    <div class="top_catagory_area section-padding-80 clearfix">
+        {% include 'Components/Index/idxTopCat.html' %}
+    </div>
+
+    <!-- CTA -->
+    <div class="cta-area">
+       {% include 'Components/Index/idxCTA.html' %}
+    </div>
+
+    <!-- New Arrivals -->
+    <section class="new_arrivals_area section-padding-80 clearfix">
+        {% include 'Components/Index/idxCarousel.html' %}
+    </section>
+
+    <!-- Brands -->
+{#    <div class="brands-area d-flex align-items-center justify-content-between">#}
+{#        {% include 'Components/Index/idxBrands.html' %}#}
+{#    </div>#}
+
+    <!-- Footer -->
+    <footer class="footer_area clearfix">
+        {% include 'Components/footer.html' %}
+    </footer>
+
+    <!-- Scripts -->
+    {% include 'Components/jslinks.html' %}
+
+</body>
+</html>

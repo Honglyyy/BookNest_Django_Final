@@ -1,0 +1,404 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Billing List - Essence</title>
+
+    <link rel="icon" href="{% static 'img/core-img/favicon.ico' %}">
+
+    <!-- SweetAlert2 CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+
+    {% include 'Components/csslinks.html' %}
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background-color: #f8f9fa;
+            color: #1a1a1a;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+
+        .page-header h1 {
+            font-size: 32px;
+            font-weight: 700;
+            color: #1a1a1a;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 8px 16px;
+            background: #e3f2fd;
+            color: #1976d2;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-left: 12px;
+        }
+
+        .back-btn {
+            padding: 12px 24px;
+            background: #1a1a1a;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.2s;
+            display: inline-block;
+        }
+
+        .back-btn:hover {
+            background: #2d2d2d;
+            transform: translateY(-1px);
+            color: white;
+        }
+
+        .billing-table-wrapper {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+
+        .billing-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .billing-table thead {
+            background: #f8f9fa;
+        }
+
+        .billing-table th {
+            padding: 16px;
+            text-align: left;
+            font-weight: 600;
+            color: #495057;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 2px solid #e9ecef;
+        }
+
+        .billing-table td {
+            padding: 20px 16px;
+            border-bottom: 1px solid #e9ecef;
+            font-size: 15px;
+        }
+
+        .billing-table tbody tr {
+            transition: background-color 0.2s;
+        }
+
+        .billing-table tbody tr:hover {
+            background-color: #f8f9fa;
+        }
+
+        .billing-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .customer-name {
+            font-weight: 600;
+            color: #1a1a1a;
+        }
+
+        .order-total {
+            font-weight: 700;
+            color: #28a745;
+            font-size: 16px;
+        }
+
+        .receipt-btn {
+            padding: 8px 16px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.2s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .receipt-btn:hover {
+            background: #0056b3;
+            transform: translateY(-1px);
+        }
+
+        .empty-state {
+            padding: 80px 40px;
+            text-align: center;
+        }
+
+        .empty-state-icon {
+            font-size: 64px;
+            margin-bottom: 20px;
+            opacity: 0.3;
+        }
+
+        .empty-state h2 {
+            font-size: 24px;
+            margin-bottom: 12px;
+            color: #1a1a1a;
+        }
+
+        .empty-state p {
+            color: #6c757d;
+            margin-bottom: 28px;
+        }
+
+        .address-short {
+            max-width: 200px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .view-details-btn {
+            color: #007bff;
+            cursor: pointer;
+            font-size: 13px;
+            text-decoration: underline;
+            margin-left: 8px;
+        }
+
+        .view-details-btn:hover {
+            color: #0056b3;
+        }
+
+        @media (max-width: 968px) {
+            .billing-table {
+                font-size: 14px;
+            }
+
+            .billing-table th,
+            .billing-table td {
+                padding: 12px 8px;
+            }
+
+            .page-header {
+                flex-direction: column;
+                gap: 20px;
+                align-items: flex-start;
+            }
+        }
+
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 12px;
+            max-width: 800px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 0;
+        }
+
+        .modal-header {
+            padding: 24px;
+            border-bottom: 1px solid #e9ecef;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h3 {
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #6c757d;
+        }
+
+        .modal-body {
+            padding: 24px;
+        }
+
+        .receipt-image {
+            width: 100%;
+            border-radius: 8px;
+            margin-top: 16px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- ##### Header Area Start ##### -->
+    <header class="header_area">
+        {% include 'Components/navbar.html' %}
+    </header>
+    <!-- ##### Header Area End ##### -->
+
+    <div class="container">
+        <div class="page-header">
+            <div>
+                <h1>Billing Orders <span class="badge">{{ billings|length }} Total</span></h1>
+            </div>
+            <a href="{% url 'index' %}" class="back-btn">← Back to Home</a>
+        </div>
+
+        <div class="billing-table-wrapper">
+            {% if billings %}
+            <table class="billing-table">
+                <thead>
+                    <tr>
+                        <th>Order ID</th>
+                        <th>Customer Name</th>
+                        <th>Phone</th>
+                        <th>Email</th>
+                        <th>Address</th>
+                        <th>Total</th>
+                        <th>Receipt</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for bill in billings %}
+                    <tr>
+                        <td>#{{ bill.id }}</td>
+                        <td class="customer-name">{{ bill.first_name }} {{ bill.last_name }}</td>
+                        <td>{{ bill.phone }}</td>
+                        <td>{{ bill.email }}</td>
+                        <td>
+                            <div class="address-short">{{ bill.address1 }}{% if bill.address2 %}, {{ bill.address2 }}{% endif %}</div>
+                            <span class="view-details-btn" onclick="showAddressDetails('{{ bill.id }}', '{{ bill.address1 }}', '{{ bill.address2 }}', '{{ bill.town }}', '{{ bill.postcode }}', '{{ bill.country }}')">View Full</span>
+                        </td>
+                        <td class="order-total">${{ bill.total|floatformat:2 }}</td>
+                        <td>
+                            {% if bill.qr_code_image %}
+                            <button class="receipt-btn" onclick="showReceipt('{{ bill.qr_code_image.url }}', '{{ bill.first_name }} {{ bill.last_name }}', '#{{ bill.id }}')">View Receipt</button>
+                            {% else %}
+                            <span style="color: #6c757d;">No receipt</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <div class="empty-state">
+                <div class="empty-state-icon">📋</div>
+                <h2>No Orders Yet</h2>
+                <p>There are no billing records to display.</p>
+                <a href="{% url 'shop' %}" class="back-btn">Start Shopping</a>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Modal for Receipt Image -->
+    <div class="modal-overlay" id="receiptModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">Payment Receipt</h3>
+                <button class="modal-close" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p><strong>Order:</strong> <span id="modalOrderId"></span></p>
+                <p><strong>Customer:</strong> <span id="modalCustomer"></span></p>
+                <img id="receiptImage" class="receipt-image" src="" alt="Payment Receipt">
+            </div>
+        </div>
+    </div>
+
+    <!-- ##### Footer Area Start ##### -->
+    <footer class="footer_area clearfix">
+        {% include 'Components/footer.html' %}
+    </footer>
+    <!-- ##### Footer Area End ##### -->
+
+    {% include 'Components/jslinks.html' %}
+
+    <!-- SweetAlert2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        function showReceipt(imageUrl, customerName, orderId) {
+            document.getElementById('receiptImage').src = imageUrl;
+            document.getElementById('modalCustomer').textContent = customerName;
+            document.getElementById('modalOrderId').textContent = orderId;
+            document.getElementById('receiptModal').classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('receiptModal').classList.remove('active');
+        }
+
+        function showAddressDetails(id, address1, address2, town, postcode, country) {
+            let fullAddress = `${address1}`;
+            if (address2 && address2 !== 'None') {
+                fullAddress += `\n${address2}`;
+            }
+            fullAddress += `\n${town}, ${postcode}`;
+            fullAddress += `\n${country}`;
+
+            Swal.fire({
+                title: `Full Address - Order #${id}`,
+                html: `<pre style="text-align: left; white-space: pre-wrap; word-wrap: break-word;">${fullAddress}</pre>`,
+                icon: 'info',
+                confirmButtonColor: '#3085d6'
+            });
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('receiptModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
+    </script>
+
+</body>
+
+</html>

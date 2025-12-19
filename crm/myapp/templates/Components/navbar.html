@@ -1,0 +1,95 @@
+{% load static %}
+<div class="classy-nav-container breakpoint-off d-flex align-items-center justify-content-between">
+        <nav class="classy-navbar" id="essenceNav">
+
+            <a class="nav-brand" href="{% url 'index' %}">
+                <img src="{% static 'img/core-img/logo.png' %}" alt="" style="height: 80px;">
+            </a>
+
+            <div class="classy-navbar-toggler">
+                <span class="navbarToggler">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </span>
+            </div>
+
+            <div class="classy-menu">
+                <div class="classycloseIcon">
+                    <div class="cross-wrap"><span class="top"></span><span class="bottom"></span></div>
+                </div>
+
+                <div class="classynav">
+                        <ul>
+                            <li><a href="{% url 'shop' %}">Shop</a>
+                                <div class="megamenu">
+                                    <ul class="single-mega cn-col-4">
+                                        <li class="title">Fiction</li>
+                                        {% for fictionGenre in DTFictionGenre %}
+                                            <li><a href="{% url 'shop_by_genre' fictionGenre.id %}">{{ fictionGenre.genreName }}</a></li>
+                                        {% endfor %}
+                                    </ul>
+
+                                    <ul class="single-mega cn-col-4">
+                                        <li class="title">Non-Fiction</li>
+                                        {% for nonFictionGenre in DTNonFictionGenre %}
+                                            <li><a href="{% url 'shop_by_genre' nonFictionGenre.id %}">{{ nonFictionGenre.genreName }}</a></li>
+                                        {% endfor %}
+                                    </ul>
+
+                                    <ul class="single-mega cn-col-4">
+                                        <li class="title">Technology</li>
+                                        {% for technologyGenre in DTTechnologyGenre %}
+                                            <li><a href="{% url 'shop_by_genre' technologyGenre.id %}">{{ technologyGenre.genreName }}</a></li>
+                                        {% endfor %}
+                                    </ul>
+                    </div>
+                </li>
+
+                    <li><a href="#">Pages</a>
+                        <ul class="dropdown">
+                            <li><a href="{% url 'index' %}">Home</a></li>
+                            <li><a href="{% url 'shop' %}">Shop</a></li>
+                            <li><a href="{% url 'checkout' %}">Checkout</a></li>
+                            <li><a href="{% url 'blog' %}">Blog</a></li>
+                            <li><a href="{% url 'contact' %}">Contact</a></li>
+                        </ul>
+                    </li>
+
+                    <li><a href="{% url 'blog' %}">Blog</a></li>
+                    <li><a href="{% url 'contact' %}">Contact</a></li>
+                </ul>
+                </div>
+
+            </div>
+        </nav>
+
+        <!-- Header Meta -->
+        <div class="header-meta d-flex clearfix justify-content-end">
+
+            <div class="search-area">
+                <form action="#" method="post">
+                    <input type="search" name="search" placeholder="Type for search">
+                    <button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+                </form>
+            </div>
+
+
+            <div class="user-login-info">
+                <a href="#"><img src="{% static 'img/core-img/user.svg' %}" alt=""></a>
+            </div>
+
+            <div class="cart-area">
+                <a href="{% url 'view_cart' %}" id="essenceCartBtn">
+                    <img src="{% static 'img/core-img/cart.svg' %}" alt="">
+                    <span>{{ request.session.cart|length }}</span>
+                </a>
+            </div>
+
+            <div class="cart-area">
+                <a href="{% url 'checkout_view' %}" id="essenceCartBtn">
+                    <img src="{% static 'img/core-img/bag.svg' %}" alt="">
+                </a>
+            </div>
+        </div>
+</div>

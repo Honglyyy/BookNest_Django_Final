@@ -1,0 +1,49 @@
+{% load static %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div class="section-heading text-center">
+                <h2>Popular Products</h2>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+
+            <!-- Carousel wrapper OUTSIDE the loop -->
+            <div class="popular-products-slides owl-carousel">
+
+                {% for product in DTProduct %}
+                <!-- Single Product -->
+                <div class="single-product-wrapper">
+                    <div class="product-img">
+                            <img src="{{ product.productImage.url }}" alt="">
+                    </div>
+
+                    <div class="product-description">
+                        <span>{{ product.genreID.genreName }}</span>
+                        <a href="{% url 'single_product_details' product.genreID.id product.id %}">
+                            <h6>{{ product.productName }}</h6>
+                        </a>
+
+                        <p class="product-price">${{ product.price }}</p>
+
+{#                            <p>Debug: DTProduct.id = {{ product.id }}</p>#}
+                        <div class="hover-content">
+                            <div class="add-to-cart-btn">
+                                <a href="{% url 'cart' product.id %}" class="btn essence-btn">Add to Cart</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+
+            </div> <!-- end carousel -->
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,73 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+    <!-- Title  -->
+    <title>Essence - Fashion Ecommerce Template</title>
+
+    <!-- Favicon  -->
+   <link rel="icon" href="{% static 'img/core-img/favicon.ico' %}">
+
+    <!-- Core Style CSS -->
+    {% include 'Components/csslinks.html' %}
+
+</head>
+
+<body>
+    <!-- ##### Header Area Start ##### -->
+    <header class="header_area">
+        {% include 'Components/navbar.html' %}
+    </header>
+    <!-- ##### Header Area End ##### -->
+
+    <!-- ##### Right Side Cart Area ##### -->
+{#    <div class="cart-bg-overlay"></div>#}
+{##}
+{#    <div class="right-side-cart-area">#}
+{#        {% include 'Components/cart-list.html' %}#}
+{#    </div>#}
+    <!-- ##### Right Side Cart End ##### -->
+
+
+    <div class="contact-area d-flex align-items-center">
+
+        <div class="google-map">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4647.321984573245!2d104.85559946940579!3d11.629307515542338!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3109527b5a6c6599%3A0x947e61c3ff00c21d!2sACLEDA%20University%20of%20Business!5e0!3m2!1sen!2skh!4v1765269338645!5m2!1sen!2skh" width="600" height="450" style="border:0; width: 900px" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+
+        <div class="contact-info">
+            <h2>How to Find Us</h2>
+            <p>Check the Google map.</p>
+
+            <div class="contact-address mt-50" >
+                <p><span>address:</span> Phnom Penh</p>
+                <p><span>telephone:</span> +885 670696</p>
+                <p style="margin-top: 0"><span>Email:</span>
+                    <a href="mailto:honglylay18@gmail.com" style="color:#787878">honglylay18@gmail.com</a>
+                </p>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- ##### Footer Area Start ##### -->
+    <footer class="footer_area clearfix">
+        {% include 'Components/footer.html' %}
+    </footer>
+    <!-- ##### Footer Area End ##### -->
+
+    <!-- jQuery (Necessary for All JavaScript Plugins) -->
+    {% include 'Components/jslinks.html' %}
+    <!-- Google Maps -->
+
+
+</body>
+
+</html>

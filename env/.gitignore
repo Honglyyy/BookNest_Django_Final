@@ -1,0 +1,28 @@
+# Python
+*.pyc
+__pycache__
+*~
+*.log
+.Python
+env/
+venv/
+ENV/
+venv.bak/
+env.bak/
+
+# Django
+*.sqlite3
+db.sqlite3
+media/
+static_collected/
+local_settings.py
+
+# IDEs and OS
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Testing and coverage
+.coverage
+htmlcov/
