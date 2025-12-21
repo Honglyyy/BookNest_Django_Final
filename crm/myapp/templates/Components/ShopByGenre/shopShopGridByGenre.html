@@ -7,7 +7,9 @@
                 <!-- ##### Single Widget ##### -->
                 <div class="widget catagory mb-50">
                     <!-- Widget Title -->
-                    <h6 class="widget-title mb-30">Catagories</h6>
+                    <a href="{% url 'shop' %}">
+                        <h6 class="widget-title mb-30" >All Books</h6>
+                    </a>
 
                     <!--  Catagories  -->
                     <div class="catagories-menu">
@@ -20,7 +22,7 @@
                                 <ul class="sub-menu collapse show">
                                     {% for genre in category.genres.all %}
                                         <li>
-                                            <a href="#">{{ genre.genreName }}</a>
+                                            <a href="{% url 'shop_by_genre' genre.id %}">{{ genre.genreName }}</a>
                                         </li>
                                     {% empty %}
                                         <li>No genres available</li>
@@ -47,7 +49,7 @@
                                 <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
                                 <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
                             </div>
-                            <div class="range-price">Range: $49.00 - $360.00</div>
+                            <div class="range-price">Range: $5 - $500.00</div>
                         </div>
                     </div>
                 </div>
@@ -68,14 +70,18 @@
                             <!-- Sorting -->
                             <div class="product-sorting d-flex">
                                 <p>Sort by:</p>
-                                <form action="#" method="get">
-                                    <select name="select" id="sortByselect">
-                                        <option value="value">Highest Rated</option>
-                                        <option value="value">Newest</option>
-                                        <option value="value">Price: $$ - $</option>
-                                        <option value="value">Price: $ - $$</option>
-                                    </select>
-                                    <input type="submit" class="d-none" value="">
+                                <form action="{% url 'shop_by_genre' genre_id %}" method="get">
+                                        <select name="select" id="sortByselect" onchange="this.form.submit()">
+                                            <option value="newest" {% if current_sort == 'newest' %}selected{% endif %}>
+                                                Newest
+                                            </option>
+                                            <option value="price_high_low" {% if current_sort == 'price_high_low' %}selected{% endif %}>
+                                                Price: $$ - $
+                                            </option>
+                                            <option value="price_low_high" {% if current_sort == 'price_low_high' %}selected{% endif %}>
+                                                Price: $ - $$
+                                            </option>
+                                        </select>
                                 </form>
                             </div>
                         </div>

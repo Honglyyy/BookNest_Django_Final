@@ -1,6 +1,6 @@
 from django.db.models import Sum, Avg, aggregates
 from django.http import HttpResponse
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from myapp.models import Genre, Category, Product, BillingDetail
 
 
@@ -99,10 +99,21 @@ def shop(request):
     DTCategory = Category.objects.prefetch_related('genres')
     NumOfProducts = Product.objects.count()
 
+    sort_by = request.GET.get('select', 'newest')
+
+    # You need to ASSIGN the result back to DTProduct
+    if sort_by == 'newest':
+        DTProduct = DTProduct.order_by('-addedDate')  # Note the '-' for descending
+    elif sort_by == 'price_high_low':
+        DTProduct = DTProduct.order_by('-price')
+    elif sort_by == 'price_low_high':
+        DTProduct = DTProduct.order_by('price')
+
     context = {
         'DTProduct': DTProduct,
         'DTCategory': DTCategory,
         'NumOfProducts': NumOfProducts,
+        'current_sort': sort_by,
     }
     return render(request, 'myapp/shop.html', context)
 
@@ -111,13 +122,26 @@ def shop_by_genre(request, genre_id):
     DTProduct = Product.objects.filter(genreID_id=genre_id)
     DTCategory = Category.objects.prefetch_related('genres')
     NumOfProducts = DTProduct.count()
+    current_genre = get_object_or_404(Genre, id=genre_id)
+    sort_by = request.GET.get('select', 'newest')
+
+    # You need to ASSIGN the result back to DTProduct
+    if sort_by == 'newest':
+        DTProduct = DTProduct.order_by('-addedDate')  # Note the '-' for descending
+    elif sort_by == 'price_high_low':
+        DTProduct = DTProduct.order_by('-price')
+    elif sort_by == 'price_low_high':
+        DTProduct = DTProduct.order_by('price')
 
     context = {
         'DTProduct': DTProduct,
         'DTCategory': DTCategory,
         'NumOfProducts': NumOfProducts,
-    }
-    return render(request, 'myapp/shop.html', context)
+        'current_sort': sort_by,
+        'genre_id': genre_id,
+        'current_genre': current_genre,
+     }
+    return render(request, 'myapp/shop_by_genre.html', context)
 
 
 def single_blog(request):
@@ -173,3 +197,6 @@ def billing_add(request):
 def billing_list(request):
     billings = BillingDetail.objects.all()
     return render(request, 'myapp/billing_list.html', {'billings': billings})
+
+def login(request):
+    return render(request, 'myapp/login.html')

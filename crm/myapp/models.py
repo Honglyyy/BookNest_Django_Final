@@ -30,8 +30,9 @@ class Product(models.Model):
     quantity = models.IntegerField(null=True)
     productDescription =  RichTextUploadingField(null=True)
     productImage = models.ImageField(upload_to='images/Products/',null=True,blank=True)
+    addedDate = models.DateTimeField(auto_now_add=True)
     def __str__(self):
-        return f'{self.id} - {self.productName}'
+        return f'{self.id} - {self.productName} - {self.addedDate}'
 
 class ProductDetail(models.Model):
     productDetailName = models.CharField(max_length=200, null=True)

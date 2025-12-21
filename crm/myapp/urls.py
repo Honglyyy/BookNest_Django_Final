@@ -19,4 +19,5 @@ urlpatterns = [
     path('shop_by_genre/<int:genre_id>', views.shop_by_genre, name='shop_by_genre'),
     path('single_blog', views.single_blog, name='single_blog'),
     path('product_detail/<int:genreId>/<int:productId>/', views.product_detail, name='single_product_details'),
+    path('login', views.login, name='login'),
 ]

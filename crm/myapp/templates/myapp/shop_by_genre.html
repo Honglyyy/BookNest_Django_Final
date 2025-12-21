@@ -41,7 +41,7 @@
             <div class="row h-100 align-items-center">
                 <div class="col-12">
                     <div class="page-title text-center">
-                        <h2>dresses</h2>
+                        <h2>{{ current_genre.genreName }}</h2>
                     </div>
                 </div>
             </div>
@@ -51,7 +51,7 @@
 
     <!-- ##### Shop Grid Area Start ##### -->
     <section class="shop_grid_area section-padding-80">
-        {% include 'Components/Shop/shopShopGrid.html' %}
+        {% include 'Components/ShopByGenre/shopShopGridByGenre.html' %}
     </section>
     <!-- ##### Shop Grid Area End ##### -->
 
