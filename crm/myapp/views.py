@@ -1,7 +1,9 @@
+from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
 from django.db.models import Sum, Avg, aggregates
 from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
-from myapp.models import Genre, Category, Product, BillingDetail
+from myapp.models import Genre, Category, Product, BillingDetail, Blog
 
 
 def index(request):
@@ -13,8 +15,31 @@ def index(request):
 
 
 def blog(request):
-    return render(request, 'myapp/blog.html')
+    # Get all blogs ordered by newest first
+    DTBlog = Blog.objects.all().order_by('-addedDate')
 
+    # Paginate - 9 blogs per page
+    paginator = Paginator(DTBlog, 3)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    context = {
+        'DTBlog': page_obj,
+        'page_obj': page_obj,
+    }
+    return render(request, 'myapp/blog.html', context)
+
+
+def single_blog(request, blog_id):
+    blog = get_object_or_404(Blog, blogID=blog_id)
+
+    related_blogs = Blog.objects.exclude(blogID=blog_id).order_by('-addedDate')[:4]
+
+    context = {
+        'blog': blog,
+        'related_blogs': related_blogs,
+    }
+    return render(request, 'myapp/single-blog.html', context)
 
 def contact(request):
     return render(request, 'myapp/contact.html')
@@ -23,29 +48,34 @@ def contact(request):
 def checkout(request):
     return render(request, 'myapp/checkout.html')
 
-
+@login_required(login_url='login')
 def add_to_cart(request, product_id):
-    """Add product to cart or increase quantity if already exists"""
     cart = request.session.get('cart', {})
 
-    if str(product_id) in cart:
-        cart[str(product_id)]['quantity'] += 1
-        cart[str(product_id)]['total'] = cart[str(product_id)]['quantity'] * cart[str(product_id)]['price']
-    else:
-        try:
-            product = Product.objects.get(id=product_id)
+    if request.method == "POST":
+        quantity = int(request.POST.get('quantity', 1))
+
+        product = get_object_or_404(Product, id=product_id)
+
+        if str(product_id) in cart:
+            cart[str(product_id)]['quantity'] += quantity
+        else:
             cart[str(product_id)] = {
                 'productName': product.productName,
                 'price': float(product.price),
-                'quantity': 1,
-                'total': float(product.price) * 1,
+                'quantity': quantity,
                 'image': product.productImage.url if product.productImage else ''
             }
-        except Product.DoesNotExist:
-            return redirect('shop')
 
-    request.session['cart'] = cart
-    request.session.modified = True
+        # Update total
+        cart[str(product_id)]['total'] = (
+            cart[str(product_id)]['price'] *
+            cart[str(product_id)]['quantity']
+        )
+
+        request.session['cart'] = cart
+        request.session.modified = True
+
     return redirect('view_cart')
 
 
@@ -95,57 +125,70 @@ def update_cart_quantity(request, product_id):
 
 
 def shop(request):
+    # Get all products
     DTProduct = Product.objects.all()
-    DTCategory = Category.objects.prefetch_related('genres')
-    NumOfProducts = Product.objects.count()
 
+    # Apply sorting BEFORE pagination
     sort_by = request.GET.get('select', 'newest')
 
-    # You need to ASSIGN the result back to DTProduct
     if sort_by == 'newest':
-        DTProduct = DTProduct.order_by('-addedDate')  # Note the '-' for descending
+        DTProduct = DTProduct.order_by('-addedDate')
     elif sort_by == 'price_high_low':
         DTProduct = DTProduct.order_by('-price')
     elif sort_by == 'price_low_high':
         DTProduct = DTProduct.order_by('price')
 
+    # Now paginate the sorted queryset
+    paginator = Paginator(DTProduct, 9)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    # Get categories
+    DTCategory = Category.objects.prefetch_related('genres')
+
     context = {
-        'DTProduct': DTProduct,
+        'DTProduct': page_obj,  # Pass the paginated object, not the full queryset
         'DTCategory': DTCategory,
-        'NumOfProducts': NumOfProducts,
+        'NumOfProducts': paginator.count,  # Use paginator.count for total
         'current_sort': sort_by,
+        'page_obj': page_obj,  # Remove the extra space in the key name
     }
     return render(request, 'myapp/shop.html', context)
 
 
 def shop_by_genre(request, genre_id):
+    # Get products filtered by genre
     DTProduct = Product.objects.filter(genreID_id=genre_id)
-    DTCategory = Category.objects.prefetch_related('genres')
-    NumOfProducts = DTProduct.count()
-    current_genre = get_object_or_404(Genre, id=genre_id)
+
+    # Apply sorting BEFORE pagination
     sort_by = request.GET.get('select', 'newest')
 
-    # You need to ASSIGN the result back to DTProduct
     if sort_by == 'newest':
-        DTProduct = DTProduct.order_by('-addedDate')  # Note the '-' for descending
+        DTProduct = DTProduct.order_by('-addedDate')
     elif sort_by == 'price_high_low':
         DTProduct = DTProduct.order_by('-price')
     elif sort_by == 'price_low_high':
         DTProduct = DTProduct.order_by('price')
 
+    # Paginate the sorted queryset
+    paginator = Paginator(DTProduct, 9)  # 9 products per page (3x3 grid)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    # Get other data
+    DTCategory = Category.objects.prefetch_related('genres')
+    current_genre = get_object_or_404(Genre, id=genre_id)
+
     context = {
-        'DTProduct': DTProduct,
+        'DTProduct': page_obj,  # Pass paginated object
         'DTCategory': DTCategory,
-        'NumOfProducts': NumOfProducts,
+        'NumOfProducts': paginator.count,  # Total count
         'current_sort': sort_by,
         'genre_id': genre_id,
         'current_genre': current_genre,
-     }
+        'page_obj': page_obj,  # For pagination controls
+    }
     return render(request, 'myapp/shop_by_genre.html', context)
-
-
-def single_blog(request):
-    return render(request, 'myapp/single-blog.html')
 
 
 def product_detail(request, genreId, productId):
@@ -197,6 +240,3 @@ def billing_add(request):
 def billing_list(request):
     billings = BillingDetail.objects.all()
     return render(request, 'myapp/billing_list.html', {'billings': billings})
-
-def login(request):
-    return render(request, 'myapp/login.html')

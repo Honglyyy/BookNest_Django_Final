@@ -20,9 +20,11 @@
                 {% for product in DTProduct %}
                 <!-- Single Product -->
                 <div class="single-product-wrapper">
-                    <div class="product-img">
+                    <a href="{% url 'shop' %}">
+                        <div class="product-img">
                             <img src="{{ product.productImage.url }}" alt="">
-                    </div>
+                        </div>
+                    </a>
 
                     <div class="product-description">
                         <span>{{ product.genreID.genreName }}</span>
@@ -34,9 +36,13 @@
 
 {#                            <p>Debug: DTProduct.id = {{ product.id }}</p>#}
                         <div class="hover-content">
-                            <div class="add-to-cart-btn">
-                                <a href="{% url 'cart' product.id %}" class="btn essence-btn">Add to Cart</a>
-                            </div>
+                            <form method="post" action="{% url 'cart' product.id %}" class="add-to-cart-btn">
+                                {% csrf_token %}
+                                <input type="hidden" name="quantity" value="1" id="cart-qty">
+                                <button type="submit" class="btn essence-btn">
+                                    Add to Cart
+                                </button>
+                            </form>
                         </div>
                     </div>
                 </div>

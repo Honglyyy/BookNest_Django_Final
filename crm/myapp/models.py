@@ -51,13 +51,14 @@ class ProductDetailImage(models.Model):
         return f'{self.id} - {self.productID.productName} - {self.productDetailImageName}'
 
 class Blog(models.Model):
-    blogID = models.CharField(max_length=200, null=True)
+    blogID = models.AutoField(primary_key=True)
+    blogName = models.CharField(max_length=200, null=True)
     blogTitle = models.CharField(max_length=200, null=True)
     blogDescription = RichTextUploadingField(null=True)
     blogImage = models.ImageField(upload_to='images/Blogs/',null=True,blank=True)
     addedDate = models.DateTimeField(auto_now_add=True, null=True)
     def __str__(self):
-        return f'{self.id} - {self.blogID} - {self.blogTitle}'
+        return f'{self.blogID} - {self.blogID} - {self.blogTitle}'
 
 class BillingDetail(models.Model):
     first_name = models.CharField(max_length=100)

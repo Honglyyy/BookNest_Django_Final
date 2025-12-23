@@ -16,7 +16,38 @@
     <!-- Core Style CSS -->
     {% include 'Components/csslinks.html' %}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .quantity-wrapper {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ddd;
+    border-radius: 30px;
+    overflow: hidden;
+    height: 45px;
+}
 
+.qty-input {
+    width: 60px;
+    text-align: center;
+    border: none;
+    outline: none;
+    font-size: 16px;
+}
+
+.qty-btn {
+    width: 40px;
+    height: 100%;
+    border: none;
+    background: #f5f5f5;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.qty-btn:hover {
+    background: #ddd;
+}
+
+    </style>
 </head>
 
 <body>
@@ -54,24 +85,32 @@
                     <p class="product-price">${{ DTProduct.price }}</p>
                 {% endif %}
                 <p class="product-desc">
-                    Mauris viverra cursus ante laoreet eleifend. Donec vel fringilla ante. Aenean finibus velit id urna vehicula, nec maximus est sollicitudin.
+                    {{ DTProduct.productDescription | safe }}
                 </p>
 
                 <!-- Form -->
-                <form class="cart-form clearfix" method="post">
+                <form class="cart-form clearfix" method="post" action="{% url 'cart' DTProduct.id %}">
                     {% csrf_token %}
+
                     <div class="cart-fav-box d-flex align-items-center">
-                        <div class="quantity">
-                            <div class="pro-qty">
-                                <input type="number" value="1">
-                            </div>
+
+                        <!-- Quantity Box -->
+                        <div class="quantity-wrapper">
+                            <button type="button" class="qty-btn minus">−</button>
+                            <input type="number" name="quantity" value="1" min="1" class="qty-input">
+                            <button type="button" class="qty-btn plus">+</button>
                         </div>
-                        <button type="submit" name="addtocart" value="5" class="btn essence-btn">Add to cart</button>
+
+                        <button type="submit" class="btn essence-btn ml-3">
+                            Add to cart
+                        </button>
+
                         <div class="product-favourite ml-4">
                             <a href="#" class="favme fa fa-heart"></a>
                         </div>
                     </div>
                 </form>
+
             </div>
 
             <div style="margin-bottom: 120px;">
@@ -151,6 +190,21 @@
                 992: { items: 4 },
                 1200: { items: 5 }
             }
+        });
+        document.addEventListener("DOMContentLoaded", function () {
+            const minusBtn = document.querySelector(".minus");
+            const plusBtn = document.querySelector(".plus");
+            const qtyInput = document.querySelector(".qty-input");
+
+            minusBtn.addEventListener("click", () => {
+                if (qtyInput.value > 1) {
+                    qtyInput.value--;
+                }
+            });
+
+            plusBtn.addEventListener("click", () => {
+                qtyInput.value++;
+            });
         });
 
     </script>

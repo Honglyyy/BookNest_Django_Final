@@ -39,8 +39,15 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'ckeditor',
-    'myapp'
+    'myapp',
+    'accounts',
+    'dashboard',
 ]
+
+# Authentication settings
+LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = 'index'  # Where to redirect after successful login
+LOGOUT_REDIRECT_URL = 'index'
 
 CKEDITOR_UPLOAD_PATH = 'uploads/'
 

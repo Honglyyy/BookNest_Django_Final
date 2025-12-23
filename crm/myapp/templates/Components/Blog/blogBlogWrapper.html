@@ -1,125 +1,108 @@
 {% load static %}
 <div class="container">
-        <div class="row">
-
-            <!-- Single Blog Area -->
-            <div class="col-12 col-lg-6">
-                <div class="single-blog-area mb-50">
-                    <img src="{% static 'img/bg-img/blog1.jpg' %}" alt="">
-                    <!-- Post Title -->
-                    <div class="post-title">
-                        <a href="#">Vivamus sed nunc in arcu cursus mollis quis et orci. Interdum et malesuada</a>
-                    </div>
-                    <!-- Hover Content -->
-                    <div class="hover-content">
-                        <!-- Post Title -->
-                        <div class="hover-post-title">
-                            <a href="#">Vivamus sed nunc in arcu cursus mollis quis et orci. Interdum et malesuada</a>
-                        </div>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce enim nulla, mollis eu metus in, sagittis fringilla tortor. Phasellus purus dignissim convallis.</p>
-                        <a href="#">Continue reading <i class="fa fa-angle-right"></i></a>
-                    </div>
+    <div class="row">
+        <!-- Single Blog Area -->
+        {% for DTBlog in DTBlog %}
+        <div class="col-12 col-lg-6">
+            <div class="single-blog-area mb-50">
+                <img src="{{ DTBlog.blogImage.url }}" alt="">
+                <!-- Post Title -->
+                <div class="post-title">
+                    <a href="#" style="color: black">{{ DTBlog.blogTitle }}</a>
                 </div>
-            </div>
-
-            <!-- Single Blog Area -->
-            <div class="col-12 col-lg-6">
-                <div class="single-blog-area mb-50">
-                    <img src="{% static 'img/bg-img/blog2.jpg' %}" alt="">
+                <!-- Hover Content -->
+                <div class="hover-content">
                     <!-- Post Title -->
-                    <div class="post-title">
-                        <a href="#">Vivamus sed nunc in arcu cursus mollis quis et orci. Interdum et malesuada</a>
+                    <div class="hover-post-title">
+                        <a href="#" style="color: black">{{ DTBlog.blogTitle }}</a>
                     </div>
-                    <!-- Hover Content -->
-                    <div class="hover-content">
-                        <!-- Post Title -->
-                        <div class="hover-post-title">
-                            <a href="#">Vivamus sed nunc in arcu cursus mollis quis et orci. Interdum et malesuada</a>
-                        </div>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce enim nulla, mollis eu metus in, sagittis fringilla tortor. Phasellus purus dignissim convallis.</p>
-                        <a href="#">Continue reading <i class="fa fa-angle-right"></i></a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Single Blog Area -->
-            <div class="col-12 col-lg-6">
-                <div class="single-blog-area mb-50">
-                    <img src="{% static 'img/bg-img/blog3.jpg' %}" alt="">
-                    <!-- Post Title -->
-                    <div class="post-title">
-                        <a href="#">Vivamus sed nunc in arcu cursus mollis quis et orci. Interdum et malesuada</a>
-                    </div>
-                    <!-- Hover Content -->
-                    <div class="hover-content">
-                        <!-- Post Title -->
-                        <div class="hover-post-title">
-                            <a href="#">Vivamus sed nunc in arcu cursus mollis quis et orci. Interdum et malesuada</a>
-                        </div>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce enim nulla, mollis eu metus in, sagittis fringilla tortor. Phasellus purus dignissim convallis.</p>
-                        <a href="#">Continue reading <i class="fa fa-angle-right"></i></a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Single Blog Area -->
-            <div class="col-12 col-lg-6">
-                <div class="single-blog-area mb-50">
-                    <img src="{% static 'img/bg-img/blog4.jpg' %}" alt="">
-                    <!-- Post Title -->
-                    <div class="post-title">
-                        <a href="#">Vivamus sed nunc in arcu cursus mollis quis et orci. Interdum et malesuada</a>
-                    </div>
-                    <!-- Hover Content -->
-                    <div class="hover-content">
-                        <!-- Post Title -->
-                        <div class="hover-post-title">
-                            <a href="#">Vivamus sed nunc in arcu cursus mollis quis et orci. Interdum et malesuada</a>
-                        </div>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce enim nulla, mollis eu metus in, sagittis fringilla tortor. Phasellus purus dignissim convallis.</p>
-                        <a href="#">Continue reading <i class="fa fa-angle-right"></i></a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Single Blog Area -->
-            <div class="col-12 col-lg-6">
-                <div class="single-blog-area mb-50">
-                    <img src="{% static 'img/bg-img/blog5.jpg' %}" alt="">
-                    <!-- Post Title -->
-                    <div class="post-title">
-                        <a href="#">Vivamus sed nunc in arcu cursus mollis quis et orci. Interdum et malesuada</a>
-                    </div>
-                    <!-- Hover Content -->
-                    <div class="hover-content">
-                        <!-- Post Title -->
-                        <div class="hover-post-title">
-                            <a href="#">Vivamus sed nunc in arcu cursus mollis quis et orci. Interdum et malesuada</a>
-                        </div>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce enim nulla, mollis eu metus in, sagittis fringilla tortor. Phasellus purus dignissim convallis.</p>
-                        <a href="#">Continue reading <i class="fa fa-angle-right"></i></a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Single Blog Area -->
-            <div class="col-12 col-lg-6">
-                <div class="single-blog-area mb-50">
-                    <img src="{% static 'img/bg-img/blog6.jpg' %}" alt="">
-                    <!-- Post Title -->
-                    <div class="post-title">
-                        <a href="#">Vivamus sed nunc in arcu cursus mollis quis et orci. Interdum et malesuada</a>
-                    </div>
-                    <!-- Hover Content -->
-                    <div class="hover-content">
-                        <!-- Post Title -->
-                        <div class="hover-post-title">
-                            <a href="#">Vivamus sed nunc in arcu cursus mollis quis et orci. Interdum et malesuada</a>
-                        </div>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce enim nulla, mollis eu metus in, sagittis fringilla tortor. Phasellus purus dignissim convallis.</p>
-                        <a href="#">Continue reading <i class="fa fa-angle-right"></i></a>
-                    </div>
+                    <p>
+                        {{ DTBlog.blogDescription|striptags|truncatewords:10 }}
+                    </p>
+                    <a href="{% url 'single_blog' DTBlog.blogID %}">Continue reading <i class="fa fa-angle-right"></i></a>
                 </div>
             </div>
         </div>
+        {% empty %}
+        <div class="col-12">
+            <p class="text-center">No blog posts available.</p>
+        </div>
+        {% endfor %}
     </div>
+
+    <!-- Pagination -->
+    {% if page_obj.has_other_pages %}
+    <div class="row">
+        <div class="col-12">
+            <nav aria-label="Blog pagination">
+                <ul class="pagination justify-content-center mt-50 mb-70">
+                    <!-- Previous Page -->
+                    {% if page_obj.has_previous %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ page_obj.previous_page_number }}">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        </li>
+                    {% else %}
+                        <li class="page-item disabled">
+                            <span class="page-link"><i class="fa fa-angle-left"></i></span>
+                        </li>
+                    {% endif %}
+
+                    <!-- First Page -->
+                    {% if page_obj.number > 3 %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page=1">1</a>
+                        </li>
+                        {% if page_obj.number > 4 %}
+                            <li class="page-item disabled">
+                                <span class="page-link">...</span>
+                            </li>
+                        {% endif %}
+                    {% endif %}
+
+                    <!-- Page Numbers -->
+                    {% for num in page_obj.paginator.page_range %}
+                        {% if page_obj.number == num %}
+                            <li class="page-item active">
+                                <span class="page-link">{{ num }}</span>
+                            </li>
+                        {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+
+                    <!-- Last Page -->
+                    {% if page_obj.number < page_obj.paginator.num_pages|add:'-2' %}
+                        {% if page_obj.number < page_obj.paginator.num_pages|add:'-3' %}
+                            <li class="page-item disabled">
+                                <span class="page-link">...</span>
+                            </li>
+                        {% endif %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">
+                                {{ page_obj.paginator.num_pages }}
+                            </a>
+                        </li>
+                    {% endif %}
+
+                    <!-- Next Page -->
+                    {% if page_obj.has_next %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ page_obj.next_page_number }}">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        </li>
+                    {% else %}
+                        <li class="page-item disabled">
+                            <span class="page-link"><i class="fa fa-angle-right"></i></span>
+                        </li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+    </div>
+    {% endif %}
+</div>
