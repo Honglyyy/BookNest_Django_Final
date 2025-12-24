@@ -49,7 +49,7 @@ def contact(request):
 def checkout(request):
     return render(request, 'myapp/checkout.html')
 
-
+@login_required(login_url = 'accounts:login')
 def add_to_cart(request, product_id):
     cart = request.session.get('cart', {})
 
@@ -79,7 +79,7 @@ def add_to_cart(request, product_id):
 
     return redirect('myapp:view_cart')
 
-
+@login_required(login_url = 'accounts:login')
 def view_cart(request):
     """Display cart contents"""
     cart = request.session.get('cart', {})
@@ -91,7 +91,7 @@ def view_cart(request):
     }
     return render(request, 'myapp/cart.html', context)
 
-
+@login_required(login_url = 'accounts:login')
 def remove_from_cart(request, product_id):
     """Remove item completely from cart"""
     if request.method == 'POST':
@@ -101,7 +101,7 @@ def remove_from_cart(request, product_id):
         request.session.modified = True
     return redirect('myapp:view_cart')
 
-
+@login_required(login_url = 'accounts:login')
 def update_cart_quantity(request, product_id):
     """Update quantity of item in cart (increase or decrease)"""
     if request.method == 'POST':
@@ -205,7 +205,7 @@ def product_detail(request, genreId, productId):
     }
     return render(request, 'myapp/single-product-details.html', context)
 
-
+@login_required(login_url = 'accounts:login')
 def checkout_view(request):
     cart = request.session.get('cart', {})
     total_price = sum(item['total'] for item in cart.values())
@@ -215,7 +215,7 @@ def checkout_view(request):
         'total_price': total_price,
     })
 
-
+@login_required(login_url = 'accounts:login')
 def billing_add(request):
     cart = request.session.get('cart', {})
     total_price = sum(item['total'] for item in cart.values())

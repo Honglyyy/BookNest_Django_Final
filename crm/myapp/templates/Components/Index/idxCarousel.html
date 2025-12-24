@@ -36,6 +36,7 @@
 
 {#                            <p>Debug: DTProduct.id = {{ product.id }}</p>#}
                         <div class="hover-content">
+                            {% if user.is_authenticated %}
                             <form method="post" action="{% url 'myapp:cart' product.id %}" class="add-to-cart-btn">
                                 {% csrf_token %}
                                 <input type="hidden" name="quantity" value="1" id="cart-qty">
@@ -43,6 +44,11 @@
                                     Add to Cart
                                 </button>
                             </form>
+                            {% else %}
+                                <a href="{% url 'accounts:login' %}?next={{ request.path }}" class="btn-add-cart btn essence-btn">
+                                    Add to Cart
+                                </a>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
