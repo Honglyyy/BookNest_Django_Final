@@ -39,9 +39,9 @@
     <div class="single-blog-wrapper">
 
         <!-- Single Blog Post Thumb -->
-        <div class="single-blog-post-thumb">
+        <div class="single-blog-post" style="display:flex;justify-content:center;align-items:center; height:50%;" >
             {% if blog.blogImage %}
-                <img src="{{ blog.blogImage.url }}" alt="{{ blog.blogTitle }}">
+                <img src="{{ blog.blogImage.url }}" alt="{{ blog.blogTitle }}" />'>
             {% else %}
                 <img src="{% static 'img/bg-img/bg-7.jpg' %}" alt="{{ blog.blogTitle }}">
             {% endif %}

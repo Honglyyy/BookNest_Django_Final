@@ -105,7 +105,7 @@
                             <!-- Product Description -->
                             <div class="product-description">
                                 <span>{{ DTProduct.genreID.genreName }}</span>
-                                <a href="{% url 'myapp:single_product_details' 1 1 %}">
+                                <a href="{% url 'myapp:single_product_details' DTProduct.genreID.id DTProduct.id %}">
                                     <h6>{{ DTProduct.productName }}</h6>
                                 </a>
                                 {% if DTProduct.originalPrice > 0 %}

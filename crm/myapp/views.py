@@ -3,7 +3,7 @@ from django.core.paginator import Paginator
 from django.db.models import Sum, Avg, aggregates
 from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
-from myapp.models import Genre, Category, Product, BillingDetail, Blog
+from myapp.models import Genre, Category, Product, BillingDetail, Blog, ProductDetailImage
 
 
 def index(request):
@@ -195,9 +195,13 @@ def shop_by_genre(request, genre_id):
 def product_detail(request, genreId, productId):
     DTProduct = Product.objects.get(genreID_id=genreId, id=productId)
     DTAllProduct = Product.objects.all()
+    DTProductDetailImages = ProductDetailImage.objects.filter(
+        productID=DTProduct
+    )
     context = {
         'DTProduct': DTProduct,
         'DTAllProduct': DTAllProduct,
+        'DTProductDetailImages': DTProductDetailImages,
     }
     return render(request, 'myapp/single-product-details.html', context)
 
