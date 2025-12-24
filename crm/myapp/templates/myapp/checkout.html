@@ -96,7 +96,7 @@
                             <h5>Billing Address</h5>
                         </div>
 
-                        <form id="checkoutForm" action="{% url 'billing_add' %}" method="post" enctype="multipart/form-data">
+                        <form id="checkoutForm" action="{% url 'myapp:billing_add' %}" method="post" enctype="multipart/form-data">
                             {% csrf_token %}
                             <div class="row">
                                 <div class="col-md-6 mb-3">
@@ -226,7 +226,7 @@
                         confirmButtonText: 'Go to Shop'
                     }).then((result) => {
                         if (result.isConfirmed) {
-                            window.location.href = "{% url 'shop' %}";
+                            window.location.href = "{% url 'myapp:shop' %}";
                         }
                     });
                 });

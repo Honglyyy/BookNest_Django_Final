@@ -75,7 +75,7 @@
                     {% else %}
                         <img src="{% static 'img/bg-img/rp1.jpg' %}" alt="{{ related.blogTitle }}">
                     {% endif %}
-                    <a href="{% url 'single_blog' related.blogID %}">
+                    <a href="{% url 'myapp:single_blog' related.blogID %}">
                         <h5>{{ related.blogTitle }}</h5>
                     </a>
                 </div>

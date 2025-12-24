@@ -18,7 +18,7 @@ def blog(request):
     # Get all blogs ordered by newest first
     DTBlog = Blog.objects.all().order_by('-addedDate')
 
-    # Paginate - 9 blogs per page
+    # Paginate - 3 blogs per page
     paginator = Paginator(DTBlog, 3)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
@@ -41,6 +41,7 @@ def single_blog(request, blog_id):
     }
     return render(request, 'myapp/single-blog.html', context)
 
+
 def contact(request):
     return render(request, 'myapp/contact.html')
 
@@ -48,7 +49,7 @@ def contact(request):
 def checkout(request):
     return render(request, 'myapp/checkout.html')
 
-@login_required(login_url='login')
+
 def add_to_cart(request, product_id):
     cart = request.session.get('cart', {})
 
@@ -76,7 +77,7 @@ def add_to_cart(request, product_id):
         request.session['cart'] = cart
         request.session.modified = True
 
-    return redirect('view_cart')
+    return redirect('myapp:view_cart')
 
 
 def view_cart(request):
@@ -98,7 +99,7 @@ def remove_from_cart(request, product_id):
         cart.pop(str(product_id), None)
         request.session['cart'] = cart
         request.session.modified = True
-    return redirect('view_cart')
+    return redirect('myapp:view_cart')
 
 
 def update_cart_quantity(request, product_id):
@@ -121,7 +122,7 @@ def update_cart_quantity(request, product_id):
             request.session['cart'] = cart
             request.session.modified = True
 
-    return redirect('view_cart')
+    return redirect('myapp:view_cart')
 
 
 def shop(request):
@@ -151,7 +152,7 @@ def shop(request):
         'DTCategory': DTCategory,
         'NumOfProducts': paginator.count,  # Use paginator.count for total
         'current_sort': sort_by,
-        'page_obj': page_obj,  # Remove the extra space in the key name
+        'page_obj': page_obj,
     }
     return render(request, 'myapp/shop.html', context)
 
@@ -200,6 +201,7 @@ def product_detail(request, genreId, productId):
     }
     return render(request, 'myapp/single-product-details.html', context)
 
+
 def checkout_view(request):
     cart = request.session.get('cart', {})
     total_price = sum(item['total'] for item in cart.values())
@@ -208,6 +210,7 @@ def checkout_view(request):
         'cart': cart,
         'total_price': total_price,
     })
+
 
 def billing_add(request):
     cart = request.session.get('cart', {})
@@ -231,12 +234,14 @@ def billing_add(request):
             total=data['total']
         )
         billing.save()
-        return redirect('billing_list')
+        return redirect('myapp:billing_list')
 
     return render(request, 'myapp/checkout.html', {
         'cart': cart,
         'total_price': total_price,
     })
+
+
 def billing_list(request):
     billings = BillingDetail.objects.all()
     return render(request, 'myapp/billing_list.html', {'billings': billings})

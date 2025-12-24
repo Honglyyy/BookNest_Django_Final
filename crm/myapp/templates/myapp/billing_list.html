@@ -279,7 +279,7 @@
             <div>
                 <h1>Billing Orders <span class="badge">{{ billings|length }} Total</span></h1>
             </div>
-            <a href="{% url 'index' %}" class="back-btn">← Back to Home</a>
+            <a href="{% url 'myapp:index' %}" class="back-btn">← Back to Home</a>
         </div>
 
         <div class="billing-table-wrapper">
@@ -324,7 +324,7 @@
                 <div class="empty-state-icon">📋</div>
                 <h2>No Orders Yet</h2>
                 <p>There are no billing records to display.</p>
-                <a href="{% url 'shop' %}" class="back-btn">Start Shopping</a>
+                <a href="{% url 'myapp:shop' %}" class="back-btn">Start Shopping</a>
             </div>
             {% endif %}
         </div>

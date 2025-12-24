@@ -8,9 +8,9 @@
                 </div>
                 <div class="footer_menu">
                     <ul>
-                        <li><a href="{% url 'shop' %}">Shop</a></li>
-                        <li><a href="{% url 'blog' %}">Blog</a></li>
-                        <li><a href="{% url 'contact' %}">Contact</a></li>
+                        <li><a href="{% url 'myapp:shop' %}">Shop</a></li>
+                        <li><a href="{% url 'myapp:blog' %}">Blog</a></li>
+                        <li><a href="{% url 'myapp:contact' %}">Contact</a></li>
                     </ul>
                 </div>
             </div>
@@ -19,12 +19,12 @@
         <div class="col-12 col-md-6">
             <div class="single_widget_area mb-30">
                 <ul class="footer_widget_menu">
-                    <li><a href="{% url 'checkout' %}">Order Status</a></li>
-                    <li><a href="{% url 'checkout' %}">Payment Options</a></li>
-                    <li><a href="{% url 'checkout' %}">Shipping and Delivery</a></li>
-                    <li><a href="{% url 'contact' %}">Guides</a></li>
-                    <li><a href="{% url 'contact' %}">Privacy Policy</a></li>
-                    <li><a href="{% url 'contact' %}">Terms of Use</a></li>
+                    <li><a href="{% url 'myapp:checkout' %}">Order Status</a></li>
+                    <li><a href="{% url 'myapp:checkout' %}">Payment Options</a></li>
+                    <li><a href="{% url 'myapp:checkout' %}">Shipping and Delivery</a></li>
+                    <li><a href="{% url 'myapp:contact' %}">Guides</a></li>
+                    <li><a href="{% url 'myapp:contact' %}">Privacy Policy</a></li>
+                    <li><a href="{% url 'myapp:contact' %}">Terms of Use</a></li>
                 </ul>
             </div>
         </div>
@@ -50,11 +50,11 @@
         <div class="col-12 col-md-6">
             <div class="single_widget_area">
                 <div class="footer_social_area">
-                    <a href="{% url 'index' %}" title="Facebook"><i class="fa fa-facebook"></i></a>
-                    <a href="{% url 'index' %}" title="Instagram"><i class="fa fa-instagram"></i></a>
-                    <a href="{% url 'index' %}" title="Twitter"><i class="fa fa-twitter"></i></a>
-                    <a href="{% url 'index' %}" title="Pinterest"><i class="fa fa-pinterest"></i></a>
-                    <a href="{% url 'index' %}" title="Youtube"><i class="fa fa-youtube-play"></i></a>
+                    <a href="{% url 'myapp:index' %}" title="Facebook"><i class="fa fa-facebook"></i></a>
+                    <a href="{% url 'myapp:index' %}" title="Instagram"><i class="fa fa-instagram"></i></a>
+                    <a href="{% url 'myapp:index' %}" title="Twitter"><i class="fa fa-twitter"></i></a>
+                    <a href="{% url 'myapp:index' %}" title="Pinterest"><i class="fa fa-pinterest"></i></a>
+                    <a href="{% url 'myapp:index' %}" title="Youtube"><i class="fa fa-youtube-play"></i></a>
                 </div>
             </div>
         </div>

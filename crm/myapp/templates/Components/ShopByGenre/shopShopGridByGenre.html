@@ -7,7 +7,7 @@
                 <!-- ##### Single Widget ##### -->
                 <div class="widget catagory mb-50">
                     <!-- Widget Title -->
-                    <a href="{% url 'shop' %}">
+                    <a href="{% url 'myapp:shop' %}">
                         <h6 class="widget-title mb-30">All Books</h6>
                     </a>
 
@@ -22,7 +22,7 @@
                                 <ul class="sub-menu collapse show">
                                     {% for genre in category.genres.all %}
                                         <li>
-                                            <a href="{% url 'shop_by_genre' genre.id %}">{{ genre.genreName }}</a>
+                                            <a href="{% url 'myapp:shop_by_genre' genre.id %}">{{ genre.genreName }}</a>
                                         </li>
                                     {% empty %}
                                         <li>No genres available</li>
@@ -69,7 +69,7 @@
                             <!-- Sorting -->
                             <div class="product-sorting d-flex">
                                 <p>Sort by:</p>
-                                <form action="{% url 'shop_by_genre' genre_id %}" method="get">
+                                <form action="{% url 'myapp:shop_by_genre' genre_id %}" method="get">
                                     <!-- Preserve current page when sorting -->
                                     {% if page_obj %}
                                         <input type="hidden" name="page" value="{{ page_obj.number }}">
@@ -105,7 +105,7 @@
                             <!-- Product Description -->
                             <div class="product-description">
                                 <span>{{ DTProduct.genreID.genreName }}</span>
-                                <a href="{% url 'single_product_details' 1 1 %}">
+                                <a href="{% url 'myapp:single_product_details' 1 1 %}">
                                     <h6>{{ DTProduct.productName }}</h6>
                                 </a>
                                 {% if DTProduct.originalPrice > 0 %}
@@ -115,9 +115,12 @@
                                 {% endif %}
                                 <!-- Hover Content -->
                                 <div class="hover-content">
-                                    <!-- Add to Cart -->
                                     <div class="add-to-cart-btn">
-                                        <a href="{% url 'cart' DTProduct.id %}" class="btn essence-btn">Add to Cart</a>
+                                        <form method="post" action="{% url 'myapp:cart' DTProduct.id %}">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="quantity" value="1">
+                                            <button type="submit" class="btn essence-btn">Add to Cart</button>
+                                        </form>
                                     </div>
                                 </div>
                             </div>

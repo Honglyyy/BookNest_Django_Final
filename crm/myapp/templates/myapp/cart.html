@@ -347,16 +347,16 @@
                             <p class="item-meta">Product #{{ product_id }}</p>
                         </div>
                         <div class="quantity-controls">
-                            <form method="POST" action="{% url 'update_cart_quantity' product_id %}" style="display: inline;">
+                            <form method="POST" action="{% url 'myapp:update_cart_quantity' product_id %}" style="display: inline;">
                                 {% csrf_token %}
                                 <button type="submit" name="action" value="decrease" class="quantity-btn">−</button>
                             </form>
                             <input type="number" class="quantity-input" value="{{ item.quantity }}" min="1" readonly>
-                            <form method="POST" action="{% url 'update_cart_quantity' product_id %}" style="display: inline;">
+                            <form method="POST" action="{% url 'myapp:update_cart_quantity' product_id %}" style="display: inline;">
                                 {% csrf_token %}
                                 <button type="submit" name="action" value="increase" class="quantity-btn">+</button>
                             </form>
-                            <form method="POST" action="{% url 'remove_from_cart' product_id %}" style="display: inline;">
+                            <form method="POST" action="{% url 'myapp:remove_from_cart' product_id %}" style="display: inline;">
                                 {% csrf_token %}
                                 <button type="submit" class="remove-btn">Remove</button>
                             </form>
@@ -384,8 +384,8 @@
                     <span>${{ total_price|floatformat:2 }}</span>
                 </div>
 
-                <a href="{% url 'checkout_view' %}" class="checkout-btn">Proceed to Checkout</a>
-                <a href="{% url 'shop' %}" class="continue-shopping">← Continue Shopping</a>
+                <a href="{% url 'myapp:checkout_view' %}" class="checkout-btn">Proceed to Checkout</a>
+                <a href="{% url 'myapp:shop' %}" class="continue-shopping">← Continue Shopping</a>
             </div>
         </div>
         {% else %}
@@ -393,7 +393,7 @@
             <div class="empty-cart-icon">🛒</div>
             <h2>Your cart is empty</h2>
             <p>Add some items to get started!</p>
-            <a href="{% url 'shop' %}" class="shop-now-btn">Start Shopping</a>
+            <a href="{% url 'myapp:shop' %}" class="shop-now-btn">Start Shopping</a>
         </div>
         {% endif %}
     </div>

@@ -19,7 +19,7 @@
                     <p>
                         {{ DTBlog.blogDescription|striptags|truncatewords:10 }}
                     </p>
-                    <a href="{% url 'single_blog' DTBlog.blogID %}">Continue reading <i class="fa fa-angle-right"></i></a>
+                    <a href="{% url 'myapp:single_blog' DTBlog.blogID %}">Continue reading <i class="fa fa-angle-right"></i></a>
                 </div>
             </div>
         </div>
